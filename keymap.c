@@ -22,35 +22,36 @@ enum layer_number {
   _NUM,
   _SYMB,
   _MUS,
-  _ADJ
+  _ADJ,
+  _GAME
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] =  LAYOUT(
         KC_Q,         KC_W,    KC_E,    KC_R,    KC_T,                                                 KC_Y,             KC_U,    KC_I,    KC_O,    KC_P,
-        LT(_MUS,KC_A),         KC_S,    KC_D,    KC_F,    KC_G,                                                 KC_H,             KC_J,    KC_K,    KC_L,    KC_SCLN,
+        LT(_MUS,KC_A),         LGUI_T(KC_S),    LALT_T(KC_D),    LCTL_T(KC_F),    KC_G,                         KC_H,             RCTL_T(KC_J),    LALT_T(KC_K),    RGUI_T(KC_L),    RALT_T(KC_SCLN),
         LSFT_T(KC_Z), KC_X,    KC_C,    KC_V,    KC_B,                                                 KC_N,             KC_M,    KC_COMM, KC_DOT,  RSFT_T(KC_SLSH),
-                                                 KC_MUTE,                                              TG(_ADJ),
-                                        KC_LCTL, LALT_T(KC_BSPC), LT(_MUS,KC_SPC),    LT(_NUM,KC_DEL), LT(_SYMB,KC_ENT), KC_CAPS
+                                                 TG(_GAME),                                              TG(_ADJ),
+                                        KC_ESC, KC_SPC, KC_TAB,    LT(_NUM,KC_ENT), LT(_SYMB,KC_BSPC), KC_DEL
     ),
     [_NUM] = LAYOUT(
-        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-        KC_TAB,  XXXXXXX, KC_VOLD, KC_VOLU, XXXXXXX,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_QUOT,
-        KC_LSFT, XXXXXXX, XXXXXXX, KC_MUTE, QK_BOOT,                      KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_RSFT,
+        KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,                         KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,
+        KC_1,    KC_2,     KC_3,     KC_4,     KC_5,                          KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
+        KC_LSFT, KC_F11,   KC_F12,   KC_MUTE, QK_BOOT,                         KC_HOME,  KC_END,   KC_PGUP,  KC_PGDN,  KC_RSFT,
                                             XXXXXXX,                      KC_NO,
                                    XXXXXXX, KC_LALT, XXXXXXX,    _______, KC_ENT,  KC_NO
     ),
     [_SYMB] = LAYOUT(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,                        XXXXXXX, XXXXXXX, XXXXXXX, KC_EQL,  KC_MINS,
-        XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,                        KC_LBRC, KC_RBRC, XXXXXXX, KC_GRV,  KC_BSLS,
+        XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,                        KC_LBRC, KC_RBRC, KC_GRV,  KC_QUOT,  KC_BSLS,
         KC_LSFT, KC_F9,   KC_F10,  KC_F11,  KC_F12,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,
                                             XXXXXXX,                      KC_NO,
                                    KC_LALT, XXXXXXX, XXXXXXX,    XXXXXXX, _______, KC_NO
     ),
     [_MUS] = LAYOUT(
         KC_LCTL, KC_BTN1,  MS_UP,   KC_BTN2,  XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        KC_LALT, MS_LEFT,  MS_DOWN, MS_RIGHT, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_LALT, MS_LEFT,  MS_DOWN, MS_RGHT, XXXXXXX,                      KC_LEFT,  KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX,
+        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_HOME,   KC_PGDN, KC_PGDN, KC_END, XXXXXXX,
                                             XXXXXXX,                      XXXXXXX,
                                    XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
     ),
@@ -60,7 +61,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      UG_PREV,  UG_HUED, UG_SATD, UG_VALD, _______,
                                             XXXXXXX,                      _______,
                                    XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
-    )
+    ),
+    [_GAME] =  LAYOUT(
+        KC_TAB,         KC_1,    KC_2,    KC_3,    KC_4,                                                 KC_Y,             KC_U,    KC_I,    KC_O,    KC_P,
+        KC_LSFT,        KC_E,    KC_W,    KC_R,    KC_T,                                                 KC_Y,             KC_U,    KC_I,    KC_O,    KC_P,
+        KC_LCTL,        KC_A,    KC_S,    KC_D,    KC_F,                         KC_H,             RCTL_T(KC_J),    LALT_T(KC_K),    RGUI_T(KC_L),    RALT_T(KC_SCLN),
+                                                 TG(_GAME),                                              TG(_ADJ),
+                                        KC_B, KC_SPC, KC_SPC,    LT(_NUM,KC_ENT), LT(_SYMB,KC_BSPC), KC_DEL
+    ),
+
 };
 
 #ifdef OLED_ENABLE
