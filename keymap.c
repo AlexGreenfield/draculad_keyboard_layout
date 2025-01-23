@@ -1,4 +1,4 @@
-/* Copyright 2021 @mangoiv
+/*iCopyright 2021 @mangoiv
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,7 +22,8 @@ enum layer_number {
   _SYMB,
   _MUS,
   _ADJ,
-  _GAME
+  _GAME,
+  _FGAME
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -31,21 +32,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(_MUS,KC_A),         LGUI_T(KC_S),    LALT_T(KC_D),    LCTL_T(KC_F),    KC_G,                         KC_H,             RCTL_T(KC_J),    LALT_T(KC_K),    RGUI_T(KC_L),    RALT_T(KC_SCLN),
         LSFT_T(KC_Z), KC_X,    KC_C,    KC_V,    KC_B,                                                 KC_N,             KC_M,    KC_COMM, KC_DOT,  RSFT_T(KC_SLSH),
                                                  TG(_GAME),                                              TG(_ADJ),
-                                        KC_ESC, LT(_SYMB,KC_SPC), KC_TAB,    KC_ENT, LT(_NUM,KC_BSPC), KC_DEL
+                                        KC_TAB, LT(_SYMB,KC_SPC), KC_ESC,    KC_ENT, LT(_NUM,KC_BSPC), KC_DEL
     ),
     [_NUM] = LAYOUT(
         KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,                         KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,
         KC_1,    KC_2,     KC_3,     KC_4,     KC_5,                          KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
         KC_LSFT, KC_F11,   KC_F12,   KC_MUTE, QK_BOOT,                         KC_HOME,  KC_END,   KC_PGUP,  KC_PGDN,  KC_RSFT,
                                             XXXXXXX,                      KC_NO,
-                                        KC_ESC, KC_SPC, KC_TAB,    KC_ENT, KC_BSPC, KC_DEL
+                                        KC_TAB, KC_SPC, KC_ESC,    KC_ENT, KC_BSPC, KC_DEL
     ),
     [_SYMB] = LAYOUT(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,                        XXXXXXX, XXXXXXX, XXXXXXX, KC_EQL,  KC_MINS,
         XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,                        KC_GRV,  KC_LBRC, KC_RBRC, KC_QUOT,  KC_BSLS,
         KC_LSFT, KC_F9,   KC_F10,  KC_F11,  KC_F12,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,
                                             XXXXXXX,                      KC_NO,
-                                        KC_ESC, KC_SPC, KC_TAB,    KC_ENT, KC_BSPC, KC_DEL
+                                        KC_TAB, KC_SPC, KC_ESC,    KC_ENT, KC_BSPC, KC_DEL
     ),
     [_MUS] = LAYOUT(
         KC_LCTL, KC_BTN1,  MS_UP,   KC_BTN2,  XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -66,9 +67,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,        KC_Q,    KC_W,    KC_E,    KC_R,                                                 KC_Y,             KC_U,    KC_I,    KC_O,    KC_P,
         KC_LSFT,        KC_A,    KC_S,    KC_D,    KC_F,                         KC_H,             RCTL_T(KC_J),    LALT_T(KC_K),    RGUI_T(KC_L),    RALT_T(KC_SCLN),
                                                  TG(_GAME),                                              TG(_ADJ),
+                                        KC_B, LT(_FGAME, KC_SPC), KC_SPC,    LT(_NUM,KC_ENT), LT(_SYMB,KC_BSPC), KC_DEL
+    ),
+    [_FGAME] =  LAYOUT(
+        KC_ESC,         KC_F1,   KC_F2,   KC_F3,   KC_F4,                                                 KC_Y,             KC_U,    KC_I,    KC_O,    KC_P,
+        KC_LCTL,        KC_Q,    KC_W,    KC_E,    KC_R,                                                 KC_Y,             KC_U,    KC_I,    KC_O,    KC_P,
+        KC_LSFT,        KC_Z,    KC_X,    KC_C,    KC_V,                         KC_H,             RCTL_T(KC_J),    LALT_T(KC_K),    RGUI_T(KC_L),    RALT_T(KC_SCLN),
+                                                 TG(_GAME),                                              TG(_ADJ),
                                         KC_B, KC_SPC, KC_SPC,    LT(_NUM,KC_ENT), LT(_SYMB,KC_BSPC), KC_DEL
     ),
-
 };
 
 #ifdef OLED_ENABLE
@@ -190,6 +197,9 @@ static void render_status(void) {
             break;
         case _GAME:
             oled_write_P(PSTR("Game  "), false);
+            break;
+        case _FGAME:
+            oled_write_P(PSTR("FGame  "), false);
             break;
         default:
             oled_write_P(PSTR("Unkn "), false);
